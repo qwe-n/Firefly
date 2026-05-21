@@ -96,6 +96,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 20,
 		enabled: true,
 	},
+	{
+		title: "十三",
+		imgurl: "https://img.nw177.cn/blog/100.assets/avatar.webp",
+		desc: "欲买桂花同载酒，终不似，少年游。",
+		siteurl: "https://firefly.nw177.cn",
+		tags: ["Blog"],
+		weight: 10, // 权重，数字越大排序越靠前
+		enabled: true, // 是否启用
+	},
 ];
 
 // 获取启用的友链并进行排序
