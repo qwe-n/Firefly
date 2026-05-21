@@ -74,7 +74,7 @@ export const friendsConfig: FriendLink[] = [
 		desc: "Dogxi 的个人博客，因为热爱所以热爱",
 		siteurl: "https://blog.dogxi.me",
 		tags: ["Blog"],
-		weight: 9,
+		weight: 1,
 		enabled: true,
 	},
 	{
