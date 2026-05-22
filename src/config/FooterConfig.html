@@ -1,91 +1,15 @@
-<!-- 萌ICP备案 -->
-<a href="https://icp.gov.moe/?keyword=20260170" target="_blank">ICP备20260170号</a>
+<!-- 萌ICP备案（上方） -->
+<a href="https://icp.gov.moe/?keyword=20260170" target="_blank">萌ICP备20260170号</a>
 <br>
 
-<!-- Umami 统计 -->
-<span id="umami-stats" style="display: none;">
-  今日 <span id="stat-today">-</span> 次
-  &nbsp;·&nbsp;
-  本月 <span id="stat-month">-</span> 次
-  &nbsp;·&nbsp;
-  总访问量 <span id="stat-total">-</span> 次
+<!-- 不蒜子统计（下方） -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span id="busuanzi_container_site_pv">
+  总访问量 <span id="busuanzi_value_site_pv"></span> 次
 </span>
-<br>
-
-© 2026 年华. All Rights Reserved. / <a href="/rss">RSS</a> / <a href="/sitemap">Sitemap</a>
-<br>
-Powered by <a href="https://astro.build" target="_blank">Astro</a> & <a href="https://firefly.js.org" target="_blank">Firefly</a>
-
-<script>
-(async function() {
-    const SHARE_ID = 'uVEXU0CJbC0XUe0n';
-    const API_BASE = 'https://umami.520781.xyz/api';
-    const todayEl = document.getElementById('stat-today');
-    const monthEl = document.getElementById('stat-month');
-    const totalEl = document.getElementById('stat-total');
-    const container = document.getElementById('umami-stats');
-
-    if (!container || !todayEl || !monthEl || !totalEl) return;
-
-    try {
-        // 1. 获取 token
-        const shareRes = await fetch(`${API_BASE}/share/${SHARE_ID}`);
-        if (!shareRes.ok) throw new Error('分享请求失败');
-        const shareData = await shareRes.json();
-        const token = shareData.token;
-
-        // 2. 请求总数（总访问量）
-        const totalRes = await fetch(
-            `${API_BASE}/websites/${shareData.websiteId}/stats?startAt=0&endAt=${Date.now()}`,
-            { headers: { 'x-umami-share-token': token } }
-        );
-        if (!totalRes.ok) throw new Error('总数请求失败');
-        const totalData = await totalRes.json();
-        const total = (totalData.pageviews || []).reduce((s, p) => s + (p.y || 0), 0);
-
-        // 3. 请求今日和本月（分别指定起始时间）
-        const now = new Date();
-        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-
-        const [todayRes, monthRes] = await Promise.all([
-            fetch(`${API_BASE}/websites/${shareData.websiteId}/stats?startAt=${todayStart}&endAt=${Date.now()}`, {
-                headers: { 'x-umami-share-token': token }
-            }),
-            fetch(`${API_BASE}/websites/${shareData.websiteId}/stats?startAt=${monthStart}&endAt=${Date.now()}`, {
-                headers: { 'x-umami-share-token': token }
-            })
-        ]);
-
-        const todayData = await todayRes.json();
-        const monthData = await monthRes.json();
-
-        const today = (todayData.pageviews || []).reduce((s, p) => s + (p.y || 0), 0);
-        const month = (monthData.pageviews || []).reduce((s, p) => s + (p.y || 0), 0);
-
-        // 4. 显示
-        todayEl.textContent = today;
-        monthEl.textContent = month;
-        totalEl.textContent = total;
-        container.style.display = '';
-
-        // 缓存起来，5分钟过期
-        localStorage.setItem('umami_stats', JSON.stringify({
-            today, month, total, timestamp: Date.now()
-        }));
-    } catch (err) {
-        console.error('Umami 统计加载失败：', err);
-        // 尝试从缓存恢复
-        const cached = localStorage.getItem('umami_stats');
-        if (cached) {
-            const data = JSON.parse(cached);
-            if (Date.now() - data.timestamp < 300000) {
-                todayEl.textContent = data.today;
-                monthEl.textContent = data.month;
-                totalEl.textContent = data.total;
-                container.style.display = '';
-            }
-        }
-    }
-})();
-</script>
+&nbsp;
+<span id="busuanzi_container_site_uv">
+  总访客数 <span id="busuanzi_value_site_uv"></span> 人次
+</span>
+https://umami.520781.xyz/share/uVEXU0CJbC0XUe0n
