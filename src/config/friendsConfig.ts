@@ -105,7 +105,7 @@ export const friendsConfig: FriendLink[] = [
 		weight: 10, // 权重，数字越大排序越靠前
 		enabled: true, // 是否启用
 	},
-		{
+	{
 		title: "ZhiJing’s Blog",
 		imgurl: "https://iwexe.top/avatar.svg",
 		desc: " Go with the flow.",

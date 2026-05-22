@@ -178,9 +178,9 @@ export const siteConfig: SiteConfig = {
 		// Umami 统计配置
 		umamiAnalytics: {
 			// Umami Website ID
-			websiteId: "313e4c16-7b7c-4861-ac94-5e3f894b5702",
+			websiteId: "0ea6a26e-e3cf-431e-ac72-f9d39cac3b93",
 			// Umami JS地址，支持使用自建
-			scriptUrl: "https://cloud.umami.is/script.js",
+			scriptUrl: "https://umami.520781.xyz/script.js",
 			// 是否追踪出站链接
 			trackOutboundLinks: true,
 			// 是否收集浏览器性能指标
