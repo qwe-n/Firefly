@@ -85,6 +85,21 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
+	links.push({
+		name: "其他",
+		url: "/others/",
+		icon: "material-symbols:more-horiz",
+
+		children: [
+			{
+				name: "统计",
+				url: "https://umami.520781.xyz/share/uVEXU0CJbC0XUe0n",
+				external: true,
+				icon: "fa7-solid:chart-simple",
+			},
+		],
+	});
+
 	// 仅返回链接，其它导航搜索相关配置在模块顶层常量中独立导出
 	return { links } as NavBarConfig;
 };
