@@ -1,4 +1,5 @@
 ---
+import WelcomeToast from "@components/WelcomeToast.astro";
 import Live2DWidget from "@components/features/Live2DWidget.astro";
 
 import SpineModel from "@components/features/SpineModel.astro";
@@ -856,7 +857,7 @@ const bannerCarouselInterval = Math.max(
                     <slot></slot>
                 </div>
             </main>
-            </div>
+            <WelcomeToast />
 
             {/* 右侧边栏 - 双侧边栏模式或仅右侧栏模式 */}
             {/*
