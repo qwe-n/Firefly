@@ -1,5 +1,5 @@
 ---
-title: sfgfccgg
+title: sfgfccg
 published: 2026-05-02
 description: ''
 image: ''
