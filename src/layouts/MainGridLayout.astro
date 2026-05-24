@@ -14,7 +14,7 @@ import TypewriterText from "@/components/features/TypewriterText.astro";
 import CategoryBar from "@/components/layout/CategoryBar.astro";
 import {
 	backgroundWallpaper,
-	live2dModelConfig,
+	live2dWidgetConfig,
 	sidebarLayoutConfig,
 	siteConfig,
 } from "@/config";
@@ -855,8 +855,9 @@ const bannerCarouselInterval = Math.max(
                 <div id="content-wrapper" class="onload-animation transition-leaving">
                     <slot></slot>
                 </div>
+                <WelcomeToast />
             </main>
-            <WelcomeToast />
+            </div>
 
             {/* 右侧边栏 - 双侧边栏模式或仅右侧栏模式 */}
             {/*
@@ -895,7 +896,7 @@ const bannerCarouselInterval = Math.max(
         </div>
 
         <SpineModel></SpineModel>
-        {live2dModelConfig.enable && <Live2DWidget config={live2dModelConfig} />}
+        {live2dWidgetConfig.enable && <Live2DWidget config={live2dWidgetConfig} />}
     </div>
 </div>
 
