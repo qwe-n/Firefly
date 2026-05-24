@@ -7,13 +7,13 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Firefly",
+	title: "年华",
 
 	// 站点副标题
-	subtitle: "Demo site",
+	subtitle: "欢迎来到我的小破站",
 
 	// 站点 URL
-	site_url: "https://firefly.cuteleaf.cn",
+	site_url: "https://blog.520781.xyz",
 
 	// 站点描述
 	description:
@@ -28,12 +28,13 @@ export const siteConfig: SiteConfig = {
 		"博客",
 		"技术博客",
 		"静态博客",
+		"生活",
 	],
 
 	// 主题色
 	themeColor: {
 		// 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		hue: 165,
+		hue: 330,
 		// 是否对访问者隐藏主题色选择器
 		fixed: false,
 		// 默认模式："light" 亮色，"dark" 暗色，"system" 跟随系统
@@ -50,7 +51,7 @@ export const siteConfig: SiteConfig = {
 		// 是否开启卡片边框和阴影，开启后让网站更有立体感
 		border: true,
 		// 是否让卡片风格跟随主题色相
-		followTheme: false,
+		followTheme: true,
 	},
 
 	// Favicon 配置
@@ -91,7 +92,7 @@ export const siteConfig: SiteConfig = {
 	},
 
 	// 站点开始日期，用于统计运行天数
-	siteStartDate: "2025-01-01",
+	siteStartDate: "2026-01-01",
 
 	// 站点时区（IANA 时区字符串），用于格式化bangumi、rss里的构建日期时间等等..
 	// 示例："Asia/Shanghai", "UTC", 如果为空，则按照构建服务器的时区进行时区转换
@@ -107,7 +108,7 @@ export const siteConfig: SiteConfig = {
 	showLastModified: true,
 
 	// 文章过期阈值（天数），超过此天数才显示"上次编辑"卡片
-	outdatedThreshold: 30,
+	outdatedThreshold: 180,
 
 	// 是否开启分享海报生成功能
 	sharePoster: true,
@@ -118,7 +119,7 @@ export const siteConfig: SiteConfig = {
 	// bangumi配置
 	bangumi: {
 		// Bangumi用户ID
-		userId: "1143164",
+		userId: "1186385",
 		// 条目类型排序，数组中的类型将按顺序优先展示
 		// 可选值: "anime" | "book" | "music" | "game" | "real" (暂不支持"real"类型)
 		// 未列出的类型将按默认顺序排在后面
@@ -131,7 +132,7 @@ export const siteConfig: SiteConfig = {
 		// 友链页面开关
 		friends: true,
 		// 赞助页面开关
-		sponsor: true,
+		sponsor: false,
 		// 留言板页面开关，需要配置评论系统
 		guestbook: true,
 		// 番组计划页面开关，含追番、游戏、书籍和音乐，dev调试时只获取一页数据，build才会获取全部数据
@@ -158,7 +159,7 @@ export const siteConfig: SiteConfig = {
 		// 网格布局配置，仅在 defaultMode 为 "grid" 或允许切换布局时生效
 		grid: {
 			// 是否开启瀑布流布局，同时有封面图和无封面图的混合文章推荐开启
-			masonry: false,
+			masonry: true,
 			// 网格模式卡片最小宽度(px)，浏览器根据容器宽度自动计算列数
 			columnWidth: 320,
 		},
@@ -179,9 +180,9 @@ export const siteConfig: SiteConfig = {
 		// Umami 统计配置
 		umamiAnalytics: {
 			// Umami Website ID
-			websiteId: "",
+			websiteId: "0ea6a26e-e3cf-431e-ac72-f9d39cac3b93",
 			// Umami JS地址，支持使用自建
-			scriptUrl: "https://cloud.umami.is/script.js",
+			scriptUrl: "https://umami.520781.xyz/script.js",
 			// Umami 会话回放脚本地址，支持使用自建
 			replaysScriptUrl: "https://cloud.umami.is/recorder.js",
 			// 是否追踪出站链接
