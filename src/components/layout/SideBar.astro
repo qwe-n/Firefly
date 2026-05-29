@@ -196,7 +196,7 @@ const hasStickyContent =
 			{/* Mobile bottom components - 移动端布局 */}
 			{isMobileBottom ? (
 				<div class="flex flex-col w-full gap-4">
-					{/* 1. 先渲染个人信息（如果配置了的话） */}
+					{/* 1. 先渲染个人信息 */}
 					{mobileProfileComp && (() => {
 						const Component = componentMap[mobileProfileComp.type];
 						if (!Component) return null;
