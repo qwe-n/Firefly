@@ -239,12 +239,7 @@ const UMAMI_CONFIG = {
 ```
 
 ## 添加到侧边栏组件
-在**src/components/layout/SideBar.astro**中导入并使用此组件：
-```
-//顶部加入
-import UmamiStats from "../widget/UmamiStats.astro";
-```
-你还需在div前导入,这部分可以查看下方完整代码
+在**src/components/layout/SideBar.astro**中导入并使用此组件，这部分可以查看下方完整代码
 ```astro
 ---
 import type { MarkdownHeading } from "astro";
