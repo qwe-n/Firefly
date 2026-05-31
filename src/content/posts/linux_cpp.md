@@ -1,23 +1,24 @@
 ---
-title: Linux(Debian系)上搭建C++开发环境
+title: Linux（Debian 系）上搭建 C++ 开发环境
 published: 2026-05-02
-description: '基于 VS Code、Clang、CMake、Ninja 和 vcpkg的C++开发环境。'
-image: ''
-tags: [cpp,Linux,教程]
+updated: 2026-05-31
+description: 用 VS Code、Clang、CMake、Ninja 和 vcpkg 搭建一个现代化的 C++ 开发环境
+tags: [cpp, Linux, 教程]
 category: 'Linux,cpp'
 draft: false
 lang: 'zh-CN'
 ---
-## 1.介绍
-Linux 凭借其丰富的工具生态和出色的性能，一直是 C++ 开发者的热门选择。本文章将带你一步步在用 Visual Studio Code 搭配 Clang、CMake、Ninja 和 vcpkg，搭建一个现代化的 C++ 开发环境，并最终完成一个基于 C++20 模块 的示例项目。
 
-### 我们需要安装的四个核心组件是：
+## 介绍
 
-1. **编译器**: Clang
-2. **项目构建器**: CMake
-3. **本地构建器**: Ninja
-4. **依赖包管理**: vcpkg
+Linux 做 C++ 开发确实舒服，工具链齐全，编译速度也快。这篇文章手把手教你在 Debian 系的 Linux 上，用 VS Code + Clang + CMake + Ninja + vcpkg 搭一套现代化的开发环境，最后还会用 C++20 模块跑一个示例项目。
 
+### 需要装的东西
+
+1. **编译器**：Clang
+2. **项目构建器**：CMake
+3. **本地构建器**：Ninja
+4. **依赖包管理**：vcpkg
 
 ```plantuml
 @startuml
@@ -32,32 +33,25 @@ stop
 @enduml
 ```
 
-## 安装和配置。
+## 安装和配置
 
-### 1.安装 Clang 编译器
+### 1. 安装 Clang 编译器
 
-Clang 不仅错误提示友好，还总能快速支持最新的 C++ 标准。根据 LLVM 项目发布页面显示，截至 2026 年 4 月，最新的稳定版本是 Clang 22.1.3。
+Clang 的错误提示比 GCC 友好很多，而且对新标准的支持一直很积极。截至 2026 年 4 月，最新稳定版是 Clang 22.1.3。Clang 23 已经有预发布版了，但建议还是用稳定的。
 
-LLVM 社区的开发非常活跃，Clang 23 也已发布了预发布版本（2026年4月13日），正处于积极的测试阶段。但推荐选择稳定版本。
-
-使用 LLVM 官方脚本是最便捷的安装方式。
-
-#### 1. 下载并执行安装脚本：
+用 LLVM 官方脚本装最省事：
 
 ```bash
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 sudo ./llvm.sh 22
 ```
-   
-执行脚本后，它会自动添加 LLVM 的官方 APT 仓库，并安装 clang-22 及相关的所有工具。
 
-#### 2. 配置默认版本：
+脚本跑完会自动添加 LLVM 的 APT 仓库，然后装好 clang-22 和相关工具。
 
-   由于安装后的编译器名为 clang-22，我们需要通过 update-alternatives 命令来设置系统级的默认调用，方便我们直接在终端使用 clang 命令。
-   
+装完之后设一下默认版本，这样终端里直接输 `clang` 就能用：
+
 ```bash
-# - 依次执行以下命令，将 Clang 22 设置为默认编译器
 sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-22 100
 sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-22 100
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-22 100
@@ -66,28 +60,25 @@ sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-22 100
 sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-22 100
 sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-22 100
 ```
-   
-执行完后，通过 clang --version 命令验证，你应该能看到类似 "clang version 22.1.3" 的输出信息。
 
-### 2.安装 CMake 构建系统
+跑完 `clang --version` 看一下，输出里有 "clang version 22.1.3" 就说明装好了。
 
-CMake 是 C++ 项目管理的核心，它能够生成不同构建系统所需的文件。自 CMake 4.0 起，项目引入了许多现代化改进。根据 Kitware 官方发布页面，当前 CMake 4.3.1 是我们可以获得的最新稳定版本。
+### 2. 安装 CMake 构建系统
 
-这里给出通过 CMake 官方提供的通用安装脚本的安装方式：
+CMake 是 C++ 项目构建的标配，能生成各种构建系统需要的文件。当前最新稳定版是 CMake 4.3.1。
 
-#### 1.下载安装脚本：
+从官方下载安装脚本：
+
 ```bash
 wget https://github.com/Kitware/CMake/releases/download/v4.3.1/cmake-4.3.1-linux-x86_64.sh
 ```
-
-#### 2.运行脚本
 
 ```bash
 chmod +x cmake-4.3.1-linux-x86_64.sh
 sudo ./cmake-4.3.1-linux-x86_64.sh --prefix=/opt/cmake-4.3.1 --skip-license
 ```
-   
-#### 3.配置为默认版本：
+
+然后配一下默认版本：
 
 ```bash
 sudo update-alternatives --install /usr/bin/cmake cmake /opt/cmake-4.3.1/bin/cmake 100
@@ -95,91 +86,77 @@ sudo update-alternatives --install /usr/bin/ctest ctest /opt/cmake-4.3.1/bin/cte
 sudo update-alternatives --install /usr/bin/cpack cpack /opt/cmake-4.3.1/bin/cpack 100
 ```
 
-现在运行 cmake --version，你应该会看到版本号为 4.3.1。
+`cmake --version` 能看到 4.3.1 就 OK 了。
 
-### 3.安装 Ninja 构建工具
+### 3. 安装 Ninja 构建工具
 
-Ninja 是一个快速的构建工具，它专注于用最快的速度完成编译任务，非常适合配合 CMake 使用。目前最新的 Ninja 稳定版本是 1.13.2。
+Ninja 专注速度，配合 CMake 用编译特别快。目前最新稳定版是 1.13.2。
 
-我们可以从 Ninja 的 GitHub 发布页面获取预编译好的二进制文件，快速完成安装：
+从 GitHub 下载预编译的二进制文件，解压放到系统路径里就行：
 
 ```bash
-# 下载最新的 Ninja 二进制包
 wget https://github.com/ninja-build/ninja/releases/download/v1.13.2/ninja-linux.zip
-
-# 解压并将可执行文件移动到系统路径
 unzip ninja-linux.zip
 sudo mv ninja /usr/bin/ninja
 sudo chmod +x /usr/bin/ninja
-
-# 验证安装
 ninja --version
 ```
 
-### 4.安装 vcpkg 包管理器
+### 4. 安装 vcpkg 包管理器
 
-vcpkg 是由微软主导的跨平台 C++ 库管理器，能够帮助我们一键安装和管理众多的 C++ 第三方库，极大简化了项目依赖问题。根据 2026 年 4 月的发布页面信息，最新的稳定版本是 2026.04.08。
+vcpkg 是微软出的 C++ 库管理器，装第三方库特别方便，不用手动折腾依赖。最新稳定版是 2026.04.08。
 
-#### 1. 克隆仓库并引导安装：
 ```bash
-# 进入你想要安装 vcpkg 的目录（例如用户主目录）
 cd ~
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
-# 注意：Linux 环境下，引导脚本是 .sh 结尾的文件！
+# Linux 下用 .sh 结尾的引导脚本
 ./bootstrap-vcpkg.sh
 ```
 
-#### 2. 配置环境变量：
+装好后把路径加到环境变量里，编辑 `~/.bashrc` 或 `~/.zshrc`：
 
-将以下内容添加到你的 Shell 配置文件中（例如 ~/.bashrc 或 ~/.zshrc），并根据你的实际安装路径进行调整后重启终端或执行 source：
 ```bash
-# - 将 CMake 和 vcpkg 添加到 PATH 和系统变量
 export PATH=/opt/cmake-4.3.1/bin:$PATH
 export VCPKG_ROOT=~/vcpkg
 export PATH=$VCPKG_ROOT:$PATH
 ```
 
-配置完成后，运行 vcpkg --version 即可看到当前版本。
+改完重启终端或者 `source ~/.bashrc`，然后 `vcpkg --version` 看看版本就对了。
 
-### 5.Visual Studio Code
+### 5. Visual Studio Code
 
-VS Code 是我们编写代码的核心编辑器(也可以使用其他编辑器)。请确保你已从官方网站下载并安装了最新版。为了获得最佳的 C++ 开发体验，请在扩展市场搜索并安装以下关键插件：
+VS Code 做 C++ 开发挺好用的（当然你也可以用 CLion 之类的）。装好之后去扩展市场搜这几个插件：
 
-#### 核心插件：
-1.Clangd (作者: LLVM)：提供精准的代码补全、跳转和实时诊断。
+1. **Clangd**（作者: LLVM）：代码补全、跳转、实时诊断，比微软的 C/C++ 插件好用。
+2. **CodeLLDB**（作者: Vadim Chugunov）：本地调试器，跟 VS Code 集成得很好。
+3. **CMake Tools**（作者: Microsoft）：直接在 VS Code 里配置、构建、运行 CMake 项目。
+4. **CMake**（作者: Microsoft）：给 CMakeLists.txt 提供语法高亮。
 
-2.**CodeLLDB** (作者: Vadim Chugunov)：一个强大的本地调试器，与 VS Code 深度集成。
+## 构建和运行你的第一个程序
 
-3.**CMake Tools** (作者: Microsoft)：让你可以直接在 VS Code 中配置、构建和运行 CMake 项目。
+用 C++20 的模块特性来写第一个项目。
 
-4.**CMake** (作者: Microsoft)：为 CMakeLists.txt 文件提供语法高亮等支持。
+### 项目结构
 
-## 构建和运行你的第一个 C++ 程序
-
-现在，我们用 C++20 特性之一——“模块 (Modules)”，来作为你的第一个项目。
-
-### 1.项目结构
-
-创建一个项目文件夹，使其具有如下结构：
+建一个项目文件夹，结构长这样：
 
 ```
 CppProject/
 ├── .vscode/
-│   └── launch.json      # - 调试配置文件 (稍后创建)
-├── CMakeLists.txt      # - CMake 项目配置
-├── CMakePresets.json   # - CMake 预设 (简化构建命令)
-├── main.cpp           # - 主程序文件
-├── utilities.ixx       # - 一个简单的 C++20 模块
-└── vcpkg.json         # - vcpkg 依赖描述
+│   └── launch.json      # 调试配置（后面会创建）
+├── CMakeLists.txt       # CMake 项目配置
+├── CMakePresets.json    # CMake 预设
+├── main.cpp             # 主程序
+├── utilities.ixx        # 一个简单的 C++20 模块
+└── vcpkg.json           # vcpkg 依赖描述
 ```
 
-不知这些文件里写什么的，把这篇文章给给，让ai吿诉你。
+不知道这些文件里写什么的话，把这篇文章丢给 AI 让它帮你生成。
 
+### 配置代码和调试器
 
-### 2.配置代码和调试器
-
-这是 utilities.ixx 模块文件的内容：
+`utilities.ixx` 模块文件：
 
 ```cpp
 module;
@@ -190,7 +167,7 @@ export auto get_greeting() {
 }
 ```
 
-这是主程序文件 main.cpp 的内容：
+主程序 `main.cpp`：
 
 ```cpp
 import utilities;
@@ -201,7 +178,7 @@ int main() {
 }
 ```
 
-接下来是调试配置。在 .vscode/launch.json 文件中粘贴以下内容，注意 program 的路径需要和你实际的构建输出目录相匹配：
+调试配置文件 `.vscode/launch.json`，注意 `program` 的路径要跟你的构建输出目录对上：
 
 ```json
 {
@@ -219,28 +196,26 @@ int main() {
 }
 ```
 
-### 3.配置、构建与运行
+### 配置、构建与运行
 
-#### 1.选择预设：
+#### 1. 选择预设
 
-在 VS Code中打开项目文件夹，按下 Ctrl+Shift+P 打开命令面板，输入并选择 CMake: Select Configure Preset。根据你的操作系统和编译器，为你自动选择一个合适的预设。
+在 VS Code 里打开项目文件夹，`Ctrl+Shift+P` 打开命令面板，输入 `CMake: Select Configure Preset`，根据你的系统和编译器选一个合适的预设。
 
-#### 2.开始构建：
+#### 2. 开始构建
 
-再次打开命令面板，输入并选择 CMake: Build，或直接按快捷键 F7。你会看到 CMake 调用 Clang 和 Ninja，完成编译和链接。
+再打开命令面板，输入 `CMake: Build`，或者直接按 `F7`。CMake 会调用 Clang 和 Ninja 来编译和链接。
 
-#### 3. 运行与调试：
+#### 3. 运行与调试
 
-一切顺利的话，点击 VS Code 底部的 ▶️ 按钮即可运行你的程序。设置好断点后，按下 F5 启动调试，你就可以使用 F10 单步执行，并实时查看变量值了。
+构建成功后，点 VS Code 底部的 ▶️ 按钮就能运行。设好断点按 `F5` 启动调试，`F10` 单步执行，变量值也能实时看到。
 
-## 总结与关键提示
+## 总结
 
-恭喜！你已经成功搭建了一套强大且符合现代 C++ 最佳实践的开发环境。这个工作流不仅适用于单人学习，也适用于大型协作工程。
+搞定了，你现在有了一套完整的现代化 C++ 开发环境。不管是自己学习还是团队协作都能用。
 
-在整个过程中有两点很重要：
+有两个要注意的地方：
 
-1. 在所有安装完成后，务必通过 --version 命令验证各个工具的版本，确保环境变量配置正确。
-
-2. 为 VS Code 配置的 launch.json 文件是你项目的“一键启动器”。当你创建新项目时，别忘了将这个文件复制到新项目的 .vscode 目录中，并根据新项目生成的可执行文件路径，调整其中的 "program" 字段。
-
-3. CMakeLists.txt和MakePresets.json如果你不知道应写什么内容请问AI应填什么内容。
+1. 装完所有工具后，记得用 `--version` 一个个验证版本，确保环境变量没配错。
+2. `launch.json` 是项目的调试启动配置，新建项目的时候记得把这个文件复制过去，然后把 `program` 字段改成新项目的可执行文件路径。
+3. `CMakeLists.txt` 和 `CMakePresets.json` 不知道怎么写的话，直接问 AI 就行。

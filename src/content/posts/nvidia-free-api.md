@@ -1,19 +1,18 @@
 ---
-title: NVIDIA Build:免费AI API
+title: NVIDIA Build：免费 AI API
 published: 2026-05-29
-description: '誓死效忠NVIDIA'
-image: ''
-tags: [AI,nvidia]
+updated: 2026-05-31
+description: 白嫖 NVIDIA 的免费 AI API，额度够用，模型够多
+tags: [AI, nvidia]
 category: 'AI'
-draft: false 
+draft: false
 lang: 'zh-CN'
 ---
-## 免费api
 
-[NVIDIA Build](https://build.nvidia.com/)限额非常慷慨，每分钟40次的限额，日常使用完 全够用了。
+## 免费 API
 
-模型也比较较丰富，有比如DeepSeek V4 Pro 和DeepSeek V4 Flase
+[NVIDIA Build](https://build.nvidia.com/) 的免费额度挺大方的，每分钟 40 次请求，日常开发完全够用。
 
-还有云端 GPU 实例的免费试用。
+模型也挺丰富，DeepSeek V4 Pro、DeepSeek V4 Flash 这些都有，还有云端 GPU 实例可以免费试用。
 
-如果你想体验前沿 AI 模型又不想花钱，NVIDIA Build 是目前最值得尝试的平台。
+如果你想体验一下最新的 AI 模型又不想花钱，这个平台目前是最值得薅的。

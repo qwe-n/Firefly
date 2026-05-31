@@ -1,27 +1,33 @@
 ---
-title: 为 Firefly添加 Umami 访问统计卡片
+title: 为 Firefly 添加 Umami 访问统计卡片
 published: 2026-05-29
-description: ''
-image: ''
-tags: [Firefly,Umami,Astro]
+updated: 2026-05-31
+description: 在 Firefly 博客侧边栏集成 Umami 访问统计，实时展示浏览量、访问数和游客数
+tags: [Firefly, Umami, Astro]
 category: 'blog'
-draft: false 
+draft: false
+lang: 'zh-CN'
 sourceLink: "https://blog.tianhw.top/posts/fuwari-umami-stats/"
-author: "THW’s Blog"
+author: "THW's Blog"
 ---
-> [!NOTE] 
-> 本教程基于[THW’s Blog](https://blog.tianhw.top/posts/fuwari-umami-stats/)大佬教程两次创作。
 
-## 开始
-了解访客来源与流量趋势是很有必要的。静态博客中配置简单，功能强大的 Umami 往往是我们的首选。
+> [!NOTE]
+> 这篇文章是基于 [THW's Blog](https://blog.tianhw.top/posts/fuwari-umami-stats/) 的教程改造的，感谢大佬的分享。
 
-然而，直接挂载 Umami 的分享外链不够直观且破坏页面一致性。本文将教你如何将 Umami 的统计数据以原生组件的形式集成到 Firefly 主题的侧边栏中，让你的博客实时展示访问数据。
+## 为什么要加统计
 
-## 准备
-首先要有一个 Umami，并获得Umami的分享链接。
+搞个博客总想知道有没有人看吧。Umami 是个轻量级的统计工具，部署简单，也不会像 Google Analytics 那样隐私问题一堆。
+
+但问题来了：Umami 自带的分享链接打开就是一个独立页面，跟博客风格完全不搭。所以我把它做成了一个侧边栏组件，嵌进博客里，打开就能看到访问数据，顺眼多了。
+
+## 准备工作
+
+前提是你已经部署好了 Umami，然后拿到一个分享链接。后面填进代码里就行。
 
 ## 添加组件
-在 **src/components/widget/** 目录下创建 **UmamiStats.astro 文件**，代码如下：
+
+在 `src/components/widget/` 目录下新建一个 `UmamiStats.astro` 文件，把下面的代码贴进去：
+
 ```astro
 ---
 import WidgetLayout from "../common/WidgetLayout.astro";
@@ -54,7 +60,7 @@ const { class: className, style } = Astro.props;
 
 <script>
 const UMAMI_CONFIG = {
-    shareUrl: '你的方享链接',
+    shareUrl: '你的分享链接',
 };
 
 let __UMAMI_INTERNAL = {
@@ -76,13 +82,11 @@ async function initUmamiConfig() {
         const sharePath = UMAMI_CONFIG.shareUrl.split('/share/')[1];
         if (!sharePath) throw new Error('Invalid Umami Share URL');
 
-        // 自动识别是官方云服务还是自建域名
         let apiBase = '';
         if (UMAMI_CONFIG.shareUrl.includes('cloud.umami.is') || UMAMI_CONFIG.shareUrl.includes('analytics.umami.is')) {
             const region = UMAMI_CONFIG.shareUrl.includes('/analytics/eu/') ? 'eu' : 'us';
             apiBase = `https://cloud.umami.is/analytics/${region}/api`;
         } else {
-            // 自建域名动态提取基础 API 路径
             const urlObj = new URL(UMAMI_CONFIG.shareUrl);
             apiBase = `${urlObj.origin}/api`;
         }
@@ -99,7 +103,6 @@ async function initUmamiConfig() {
             isReady: true
         };
 
-        // 更新页面上所有统计组件的跳转链接
         const links = document.querySelectorAll('.umami-link');
         links.forEach(link => link.setAttribute('href', UMAMI_CONFIG.shareUrl));
 
@@ -118,7 +121,6 @@ function formatNumber(num: number): string {
 }
 
 function setStats(values: { pageviews: number; visits: number; visitors: number }) {
-    // 抓取页面上所有的统计组件实例
     const pageviewsElements = document.querySelectorAll('.umami-total-pageviews');
     const visitsElements = document.querySelectorAll('.umami-total-visits');
     const visitorsElements = document.querySelectorAll('.umami-total-visitors');
@@ -150,7 +152,6 @@ function setStats(values: { pageviews: number; visits: number; visitors: number 
         animHandles.set(el, requestAnimationFrame(tick));
     };
 
-    // 群发更新所有节点的数字
     pageviewsElements.forEach(el => animateStat(el as HTMLElement, values.pageviews));
     visitsElements.forEach(el => animateStat(el as HTMLElement, values.visits));
     visitorsElements.forEach(el => animateStat(el as HTMLElement, values.visitors));
@@ -168,7 +169,7 @@ async function fetchUmamiStats() {
 
     try {
         const endAt = Date.now();
-        const startAt = 0; 
+        const startAt = 0;
         const url = `${__UMAMI_INTERNAL.baseUrl}/websites/${__UMAMI_INTERNAL.websiteId}/stats?startAt=${startAt}&endAt=${endAt}&unit=hour&timezone=Asia%2FShanghai`;
 
         const response = await fetch(url, {
@@ -208,7 +209,7 @@ function initUmamiStatsVisibility() {
         entries.forEach(entry => {
             if (entry.isIntersecting) isAnyVisible = true;
         });
-        
+
         if (isAnyVisible) {
             startUmamiStats();
             io.disconnect();
@@ -229,17 +230,23 @@ if (window.swup) {
 </script>
 ```
 
-## 配置参数
-在代码文件的 script 部分，填入你的分享链接
+## 配置
+
+代码里有个 `UMAMI_CONFIG`，把你的分享链接填进去就行：
+
 ```javascript
 <script>
 const UMAMI_CONFIG = {
-    shareUrl: '你的方享链接',
+    shareUrl: '你的分享链接',  // ← 这里改成你自己的
 };
 ```
 
-## 添加到侧边栏组件
-在**src/components/layout/SideBar.astro**中导入并使用此组件，这部分可以查看下方完整代码
+## 挂到侧边栏上
+
+组件写好了，接下来得让它出现在页面上。打开 `src/components/layout/SideBar.astro`，把 `UmamiStats` import 进来，然后在合适的位置放上 `<UmamiStats />`。
+
+下面是改完之后的完整代码，可以对照着改：
+
 ```astro
 ---
 import type { MarkdownHeading } from "astro";
@@ -266,23 +273,19 @@ interface Props {
 	side?: "left" | "right" | "bottom";
 }
 
-// 侧边栏位置常量
 const SIDEBAR_SIDE = {
 	LEFT: "left",
 	RIGHT: "right",
 	BOTTOM: "bottom",
 } as const;
 
-// 组件位置常量
 const COMPONENT_POSITION = {
 	TOP: "top",
 	STICKY: "sticky",
 } as const;
 
-// 动画延迟配置
-const ANIMATION_DELAY_UNIT = 50; // ms
+const ANIMATION_DELAY_UNIT = 50;
 
-// 组件映射表
 const componentMap = {
 	profile: Profile,
 	announcement: Announcement,
@@ -295,12 +298,10 @@ const componentMap = {
 	music: Music,
 } satisfies Record<WidgetComponentType, typeof Profile>;
 
-// 获取侧边栏位置
 const side = (Astro.props.side ||
 	SIDEBAR_SIDE.LEFT) as (typeof SIDEBAR_SIDE)[keyof typeof SIDEBAR_SIDE];
 const className = Astro.props.class;
 
-// 根据 side 属性获取对应的组件列表
 const getComponents = (): (
 	| WidgetComponentConfig
 	| MobileBottomComponentConfig
@@ -317,14 +318,12 @@ const getComponents = (): (
 	return [];
 };
 
-// 过滤并排序组件
 const filterAndSortComponents = (
 	components: (WidgetComponentConfig | MobileBottomComponentConfig)[],
 ) => {
 	return components.filter((comp) => comp.enable);
 };
 
-// 分离 top 和 sticky 位置的组件
 const getComponentsByPosition = (
 	components: (WidgetComponentConfig | MobileBottomComponentConfig)[],
 ) => {
@@ -337,15 +336,12 @@ const getComponentsByPosition = (
 	return { topComponents, stickyComponents };
 };
 
-// 获取动画延迟
 const getAnimationDelay = (index: number): string => {
 	return `${index * ANIMATION_DELAY_UNIT}ms`;
 };
 
-// 判断当前页面是否为文章页面
 const isPostPage = Astro.url.pathname.includes("/posts/");
 
-// 判断组件在当前页面首屏是否可见
 const isComponentInitiallyVisible = (
 	config: WidgetComponentConfig | MobileBottomComponentConfig,
 ): boolean => {
@@ -366,7 +362,6 @@ const isComponentInitiallyVisible = (
 	return true;
 };
 
-// 动态构建组件 props
 const getComponentProps = (
 	config: WidgetComponentConfig | MobileBottomComponentConfig,
 	index: number,
@@ -404,7 +399,6 @@ const getComponentProps = (
 	return baseProps;
 };
 
-// 获取所有需要渲染的组件
 const allComponents = getComponents();
 const filteredComponents = filterAndSortComponents(allComponents);
 
@@ -417,7 +411,6 @@ const hasInitiallyVisibleTopComponents = topComponents.some(
 	isComponentInitiallyVisible,
 );
 
-// 为移动端准备分离的组件（为了实现 Profile 在上，统计在下）
 let mobileProfileComp: MobileBottomComponentConfig | undefined;
 let mobileOtherComponents: MobileBottomComponentConfig[] = [];
 
@@ -428,7 +421,6 @@ if (isMobileBottom) {
 	);
 }
 
-// 决定是否渲染 sticky 容器（如果有 sticky 组件，或者当前是左侧边栏）
 const hasStickyContent =
 	stickyComponents.length > 0 || side === SIDEBAR_SIDE.LEFT;
 ---
@@ -436,10 +428,8 @@ const hasStickyContent =
 {
 	(topComponents.length > 0 || stickyComponents.length > 0 || bottomComponents.length > 0 || hasStickyContent) && (
 		<div id={`${side}-sidebar`} class:list={[className, "flex flex-col w-full pt-0"]}>
-			{/* Mobile bottom components - 移动端布局 */}
 			{isMobileBottom ? (
 				<div class="flex flex-col w-full gap-4">
-					{/* 1. 先渲染个人信息 */}
 					{mobileProfileComp && (() => {
 						const Component = componentMap[mobileProfileComp.type];
 						if (!Component) return null;
@@ -447,20 +437,17 @@ const hasStickyContent =
 						return <Component {...props} />;
 					})()}
 
-					{/* 2. 接着渲染统计组件（实现上下互换） */}
 					<UmamiStats class="onload-animation" style="animation-delay: 50ms" />
-					
-					{/* 3. 最后渲染其他的常规组件 */}
+
 					{mobileOtherComponents.map((comp, index) => {
 						const Component = componentMap[comp.type];
 						if (!Component) return null;
-						const props = getComponentProps(comp, index + 2) as any; 
+						const props = getComponentProps(comp, index + 2) as any;
 						return <Component {...props} />;
 					})}
 				</div>
 			) : (
 				<>
-					{/* Top components */}
 					{topComponents.length > 0 && (
 						<div
 							class:list={[
@@ -477,7 +464,6 @@ const hasStickyContent =
 						</div>
 					)}
 
-					{/* Sticky components */}
 					{hasStickyContent && !isMobileBottom && (
 						<div
 							id={`${side}-sidebar-sticky`}
@@ -487,7 +473,6 @@ const hasStickyContent =
 								hasInitiallyVisibleTopComponents ? "top-4" : "top-0",
 							]}
 						>
-							{/* PC 端仅在左侧边栏渲染统计，避免两侧重复 */}
 							{side === SIDEBAR_SIDE.LEFT && (
 								<UmamiStats class="onload-animation" style="animation-delay: 200ms" />
 							)}
@@ -509,5 +494,7 @@ const hasStickyContent =
 	)
 }
 ```
+
 ## 结尾
-通过以上步骤，你就成功为 Firefly 添加了具有丰富交互感、自动解析配置且支持点击查看详情的 Umami 统计卡片。
+
+搞定了。现在每次打开博客，侧边栏就会自动加载 Umami 的访问数据，还有个数字滚动的动画效果，看着还挺舒服的。如果数据拉不到（比如 API 挂了），会自动显示 fallback 的数字，不至于空空的。
