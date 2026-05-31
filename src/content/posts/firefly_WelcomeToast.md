@@ -1,5 +1,5 @@
 ---
-title: Firefly 主题 WelcomeToast 组件分析
+title: Firefly 主题 添加WelcomeToast 组件
 published: 2026-05-31
 updated: 2026-05-31
 description: 分析 Firefly Astro 博客主题中 WelcomeToast 欢迎弹窗的实现逻辑与在 MainGridLayout 中的集成方式
@@ -11,7 +11,7 @@ lang: zh-CN
 
 # Firefly 主题 WelcomeToast 组件分析
 
-irefly是一个基于 Astro的博客主题。
+Firefly是一个基于 Astro的博客主题。
 
 ::github{repo="CuteLeaf/Firefly"}
 
