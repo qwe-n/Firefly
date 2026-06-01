@@ -88,6 +88,15 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true,
 	},
 	{
+		title: "Hyde Blog",
+		imgurl: "https://seasir.top/assets/avatar.avif",
+		desc: "人心中的成见是一座大山",
+		siteurl: "https://seasir.top/",
+		tags: ["Blog"],
+		weight: 18,
+		enabled: true,
+	},
+	{
 		title: "二叉树树",
 		imgurl: "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=0",
 		desc: "Protect What You Love.",
