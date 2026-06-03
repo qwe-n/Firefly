@@ -132,6 +132,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 10, // 权重，数字越大排序越靠前
 		enabled: true, // 是否启用
 	},
+	{
+		title: "THW’s Blog",
+		imgurl: "https://image.tianhw.top/avatar.webp",
+		desc: "前途似海，来日方长",
+		siteurl: "https://blog.tianhw.top",
+		tags: ["Blog"],
+		weight: 10,
+		enabled: true,
+	},
 ];
 
 // 获取启用的友链并进行排序
