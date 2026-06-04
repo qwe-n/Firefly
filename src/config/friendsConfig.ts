@@ -138,7 +138,7 @@ export const friendsConfig: FriendLink[] = [
 		desc: "前途似海，来日方长",
 		siteurl: "https://blog.tianhw.top",
 		tags: ["Blog"],
-		weight: 10,
+		weight: 11,
 		enabled: true,
 	},
 ];
