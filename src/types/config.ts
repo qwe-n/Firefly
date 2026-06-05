@@ -51,6 +51,9 @@ export type SiteConfig = {
 	// bangumi配置
 	bangumi?: {
 		userId?: string; // Bangumi用户ID
+		mode?: "static" | "dynamic"; // 数据模式：static=构建时获取，dynamic=客户端实时获取
+		apiUrl?: string; // Bangumi API 地址
+		subjectBaseUrl?: string; // 条目详情页地址
 		categoryOrder?: ("anime" | "game" | "book" | "music" | "real")[]; // 条目类型排序顺序
 	};
 
@@ -179,6 +182,8 @@ export enum LinkPreset {
 	Guestbook = 5,
 	Bangumi = 6,
 	Gallery = 7,
+	Tags = 8,
+	Categories = 9,
 }
 
 export type NavBarLink = {
@@ -432,6 +437,7 @@ export type WidgetComponentConfig = {
 	responsive?: {
 		hidden?: ("mobile" | "tablet" | "desktop")[]; // 在指定设备上隐藏
 		collapseThreshold?: number; // 折叠阈值
+		showHeatmap?: boolean; // 是否显示热力图（仅日历组件）
 	};
 	customProps?: Record<string, unknown>; // 自定义属性，用于扩展组件功能
 };
@@ -445,6 +451,7 @@ export type MobileBottomComponentConfig = {
 	responsive?: {
 		hidden?: ("mobile" | "tablet" | "desktop")[]; // 在指定设备上隐藏
 		collapseThreshold?: number; // 折叠阈值
+		showHeatmap?: boolean; // 是否显示热力图（仅日历组件）
 	};
 	customProps?: Record<string, unknown>; // 自定义属性，用于扩展组件功能
 };
@@ -775,6 +782,7 @@ export type SponsorMethod = {
 // 赞助者列表项
 export type SponsorItem = {
 	name: string; // 赞助者名称，如果想显示匿名，可以直接设置为"匿名"或使用 i18n
+	avatar?: string; // 赞助者头像图片路径(可选,相对于 public 目录 或者 网络图片)
 	amount?: string; // 赞助金额（可选）
 	date?: string; // 赞助日期（可选，ISO 格式）
 };

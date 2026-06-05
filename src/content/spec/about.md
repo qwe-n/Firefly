@@ -4,7 +4,21 @@
 
 Hello,everyone！ 我是**年华** 一个喜欢折腾的开发者，同时每天库库刷题的初中学生 一个…
 
-欢迎来到你的博客！很喜欢这里的氛围——把思考、编程和生活经历放在一起，感觉是个很棒的组合。你最近有没有在做什么让你兴奋的编程项目？或者有没有什么生活感悟特别想写下来？不管怎样，我很乐意常来看看，如果你也有网站，我很高兴和你交换友链。
+这个网站使用 **Astro** 框架构建，采用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，Firefly 是基于 [Fuwari](https://github.com/saicaca/fuwari) 的二次开发。
+
+**Firefly** 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。
+
+**📝Firefly使用文档： [https://docs-firefly.cuteleaf.cn](https://docs-firefly.cuteleaf.cn/)**
+
+**⭐Firefly开源地址：[https://github.com/CuteLeaf/Firefly](https://github.com/CuteLeaf/Firefly)** 
+
+**⭐Fuwari开源地址：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)**
+
+::github{repo="CuteLeaf/Firefly"}
+
+::github{repo="saicaca/fuwari"}
+
+---
 
 *感谢你的来访！希望在这里能找到对你有用的内容！*
 
