@@ -142,6 +142,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 11,
 		enabled: true,
 	},
+	{
+		title: "Saimen Blog",
+		imgurl: "https://img.z2m.store/file/public/1778862620159_g.png",
+		desc: "读史可以明智,知古方能鉴今。",
+		siteurl: "https://com.z2m.store",
+		tags: ["Blog"],
+		weight: 11,
+		enabled: true,
+	},
 ];
 
 // 获取启用的友链并进行排序
