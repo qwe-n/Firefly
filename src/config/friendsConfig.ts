@@ -133,10 +133,11 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true, // 是否启用
 	},
 	{
-		title: "THW’s Blog",
-		imgurl: "https://image.tianhw.top/avatar.webp",
-		desc: "前途似海，来日方长",
-		siteurl: "https://blog.tianhw.top",
+		title: "L!!!!ght",
+		imgurl:
+			"https://easyimg.kejk.cn/i/4484873c-c2cc-4b3d-bc35-5c72ed01cfd9.webp",
+		desc: "阳光正好，慢慢前行。",
+		siteurl: "https://sunlight.kejk.cn",
 		tags: ["Blog"],
 		weight: 11,
 		enabled: true,
