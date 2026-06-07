@@ -151,6 +151,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 11,
 		enabled: true,
 	},
+	{
+		title: "Saimen Blog",
+		imgurl: "https://com.z2m.store/img/butterfly-icon.png",
+		desc: "读史可以明智,知古方能鉴今。",
+		siteurl: "https://com.z2m.store",
+		tags: ["Blog"],
+		weight: 10, // 权重，数字越大排序越靠前
+		enabled: true, // 是否启用
+	},
 ];
 
 // 获取启用的友链并进行排序
