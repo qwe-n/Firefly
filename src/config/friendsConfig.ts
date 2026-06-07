@@ -166,7 +166,7 @@ export const friendsConfig: FriendLink[] = [
 		desc: "聚是火簇，散作繁星",
 		siteurl: "https://sudachi.top/",
 		tags: ["技术"],
-		weight: 18, // 权重，数字越大排序越靠前
+		weight: 17, // 权重，数字越大排序越靠前
 		enabled: true, // 是否启用
 	},
 ];
