@@ -157,7 +157,7 @@ export const friendsConfig: FriendLink[] = [
 		desc: "读史可以明智,知古方能鉴今。",
 		siteurl: "https://com.z2m.store",
 		tags: ["Blog"],
-		weight: 10, // 权重，数字越大排序越靠前
+		weight: 9, // 权重，数字越大排序越靠前
 		enabled: true, // 是否启用
 	},
 ];
