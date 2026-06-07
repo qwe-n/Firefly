@@ -175,7 +175,7 @@ export const friendsConfig: FriendLink[] = [
 		desc: "前途似海，来日方长",
 		siteurl: "https://blog.tianhw.top",
 		tags: ["Blog"],
-		weight: 13, // 权重，数字越大排序越靠
+		weight: 14, // 权重，数字越大排序越靠
 		enabled: true, // 是否启用
 	},
 ];
