@@ -2,13 +2,14 @@
 import WidgetLayout from "../common/WidgetLayout.astro";
 
 interface Props {
+	id?: string;
 	class?: string;
 	style?: string;
 }
-const { class: className, style } = Astro.props;
+const { id = "umami-stats", class: className, style } = Astro.props;
 ---
 
-<WidgetLayout name="统计" class:list={["umami-stats-container", className, "cursor-pointer transition-opacity active:scale-95"]} {style}>
+<WidgetLayout {id} name="统计" class:list={["umami-stats-container", className, "cursor-pointer transition-opacity active:scale-95"]} {style}>
     <a target="_blank" rel="noopener noreferrer" class="block umami-link">
         <div class="text-center py-2">
             <div class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 umami-total-pageviews">-</div>
