@@ -170,11 +170,11 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true, // 是否启用
 	},
 	{
-		title: "他说",
-		imgurl: "https://090909.top/assets/images/logo.ico",
-		desc: "梁栋烨的博客网站。",
-		siteurl: "https://090909.top/",
-		tags: ["技术"],
+		title: "THW’s Blog",
+		imgurl: "https://image.tianhw.top/avatar.webp",
+		desc: "前途似海，来日方长",
+		siteurl: "https://blog.tianhw.top",
+		tags: ["Blog"],
 		weight: 13, // 权重，数字越大排序越靠
 		enabled: true, // 是否启用
 	},
