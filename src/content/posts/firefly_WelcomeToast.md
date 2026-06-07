@@ -6,6 +6,7 @@ description: 分析 Firefly Astro 博客主题中 WelcomeToast 欢迎弹窗的�
 tags: [Astro, Firefly, Component, Analysis]
 category: Guide
 draft: false
+image: "api"
 lang: zh-CN
 ---
 
