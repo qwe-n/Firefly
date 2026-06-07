@@ -169,6 +169,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 17, // 权重，数字越大排序越靠前
 		enabled: true, // 是否启用
 	},
+	{
+		title: "他说",
+		imgurl: "https://090909.top/assets/images/logo.ico",
+		desc: "梁栋烨的博客网站。",
+		siteurl: "https://090909.top/",
+		tags: ["技术"],
+		weight: 13, // 权重，数字越大排序越靠
+		enabled: true, // 是否启用
+	},
 ];
 
 // 获取启用的友链并进行排序
