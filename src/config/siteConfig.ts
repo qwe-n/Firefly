@@ -97,7 +97,6 @@ export const siteConfig: SiteConfig = {
 	// 示例："Asia/Shanghai", "UTC", 如果为空，则按照构建服务器的时区进行时区转换
 	timezone: "Asia/Shanghai",
 
-
 	// 页面开关配置 - 控制特定页面的访问权限，设为false会返回404
 	// 关闭后请前往src/config/navBarConfig.ts中手动移除对应页面的导航栏链接
 	pages: {
@@ -180,7 +179,6 @@ export const siteConfig: SiteConfig = {
 		// 每页显示的文章数量
 		postsPerPage: 10,
 	},
-
 
 	// 图像优化及响应式配置
 	// 图像优化压缩只保留avif或webp

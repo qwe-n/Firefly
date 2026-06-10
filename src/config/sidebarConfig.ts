@@ -94,7 +94,6 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 				collapseThreshold: 10,
 			},
 		},
-
 	],
 
 	// 右侧边栏组件配置列表
@@ -205,6 +204,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 					displayCount: -1,
 				},
 			},
+		},
 	],
 
 	// 移动端底部组件配置列表
