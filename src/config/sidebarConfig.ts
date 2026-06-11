@@ -117,6 +117,13 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			position: "top",
 			// 是否在文章详情页显示
 			showOnPostPage: true,
+			// 组件专属配置
+			specificConfig: {
+				siteInfo: {
+					// 未能识别的构建平台回退显示文本，可自定义
+					unknownBuildPlatform: "Unknown CI",
+				},
+			},
 		},
 		{
 			// 组件类型：日历组件
@@ -153,7 +160,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 组件类型：广告栏组件 1
 			type: "advertisement",
 			// 是否启用该组件
-			enable: true,
+			enable: false,
 			// 是否显示组件标题
 			showTitle: false,
 			// 组件位置
